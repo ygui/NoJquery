@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	
+	<style type="text/css">
+		#teste{
+			background-color:#0066cc;
+			width:200px;
+			height:200px;
+			position:absolute;
+		}
+	</style>
+	
+</head>
+<body>
+	
+	<div id="teste"></div>
+	
+	<script type="text/javascript">
+		
+		function drag(objeto){
+			document.getElementById(objeto).onmousedown = function() {
+			
+				var positionInitY = this.offsetTop;
+				var positionInitX = this.offsetLeft;
+				
+				var sizeInitH = this.offsetHeight;
+				var sizeInitW = this.offsetWidth;
+				
+				var posInitCursorY = event.clientY;
+				var posInitCursorX = event.clientX;
+				
+				document.getElementById(objeto).style.backgroundColor = "#9955bb";
+				
+				function refresh(){
+					document.getElementById(objeto).style.top = Number((posAtualCursorY - sizeInitH) + (( positionInitY +  sizeInitH ) -  posInitCursorY) ) + "px";
+					document.getElementById(objeto).style.left = Number((posAtualCursorX - sizeInitW) + (( positionInitX +  sizeInitW ) -  posInitCursorX) ) + "px";
+				}
+				
+				onmousemove = function() {
+					posAtualCursorY = event.clientY;
+					posAtualCursorX = event.clientX;
+					window.setTimeout(refresh,1);
+				}
+				
+			};
+			
+			document.getElementById(objeto).onmouseup =  function() {
+				document.getElementById(objeto).style.backgroundColor = "#0066cc";
+				onmousemove = function() { return false; }
+			}
+			
+		}
+		
+		drag("teste")
+		
+	</script>
+	
+</body>
+</html>
